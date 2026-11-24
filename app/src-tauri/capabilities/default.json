@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "厦与珈主窗口权限",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:default"]
+}

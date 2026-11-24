@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+
+.scratch/
+dist/
+app/node_modules/
+app/dist/
+app/src-tauri/target/
+app/src-tauri/binaries/*.tar.gz
+*.log

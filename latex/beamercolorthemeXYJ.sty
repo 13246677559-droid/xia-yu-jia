@@ -1,0 +1,90 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeXYJ}
+\RequirePackage{etoolbox}
+
+\ifdefstring{\xyjpalette}{whu}{%
+  \definecolor{xyjPrimary}{HTML}{115740}
+  \definecolor{xyjAccent}{HTML}{F8A3BC}
+  \definecolor{xyjAccentText}{HTML}{8A2F4A}
+  \definecolor{xyjTint}{HTML}{EEF4F0}
+  \definecolor{xyjSoft}{HTML}{E9F1ED}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{whu-lake}{%
+  \definecolor{xyjPrimary}{HTML}{002554}
+  \definecolor{xyjAccent}{HTML}{41B6E6}
+  \definecolor{xyjAccentText}{HTML}{0B5F78}
+  \definecolor{xyjTint}{HTML}{EDF5FA}
+  \definecolor{xyjSoft}{HTML}{E4EFF7}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{whu-tile}{%
+  \definecolor{xyjPrimary}{HTML}{00797C}
+  \definecolor{xyjAccent}{HTML}{41B6E6}
+  \definecolor{xyjAccentText}{HTML}{0B5F78}
+  \definecolor{xyjTint}{HTML}{E8F4F4}
+  \definecolor{xyjSoft}{HTML}{E6F4F4}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{whu-vine}{%
+  \definecolor{xyjPrimary}{HTML}{33058D}
+  \definecolor{xyjAccent}{HTML}{F8A3BC}
+  \definecolor{xyjAccentText}{HTML}{8A2F4A}
+  \definecolor{xyjTint}{HTML}{F2EFFA}
+  \definecolor{xyjSoft}{HTML}{EAE4F6}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{whu-gold}{%
+  \definecolor{xyjPrimary}{HTML}{6B4A00}
+  \definecolor{xyjAccent}{HTML}{FFA300}
+  \definecolor{xyjAccentText}{HTML}{8A5A00}
+  \definecolor{xyjTint}{HTML}{FBF4E6}
+  \definecolor{xyjSoft}{HTML}{F7EAD2}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{whu-mist}{%
+  \definecolor{xyjPrimary}{HTML}{4E5559}
+  \definecolor{xyjAccent}{HTML}{41B6E6}
+  \definecolor{xyjAccentText}{HTML}{0B5F78}
+  \definecolor{xyjTint}{HTML}{F2F4F5}
+  \definecolor{xyjSoft}{HTML}{E9EDF0}
+  \definecolor{xyjOnAccent}{HTML}{1F2328}
+}{%
+\ifdefstring{\xyjpalette}{xmu}{%
+  \definecolor{xyjPrimary}{HTML}{003C88}
+  \definecolor{xyjAccent}{HTML}{B03A2E}
+  \definecolor{xyjAccentText}{HTML}{8A1C12}
+  \definecolor{xyjTint}{HTML}{EDF2F9}
+  \definecolor{xyjSoft}{HTML}{E4ECF7}
+  \definecolor{xyjOnAccent}{HTML}{FFFFFF}
+}{%
+  \PackageError{beamercolorthemeXYJ}{Unknown palette `\xyjpalette'}{%
+    Use one of whu, whu-lake, whu-tile, whu-vine, whu-gold, whu-mist, xmu.%
+  }%
+}}}}}}}
+
+\definecolor{xyjText}{HTML}{1F2328}
+\definecolor{xyjMuted}{HTML}{5F6368}
+\definecolor{xyjFootnote}{HTML}{8A9099}
+\definecolor{xyjEndTan}{HTML}{D8A47F}
+\definecolor{xyjDivider}{HTML}{C1C6C8}
+
+\setbeamercolor{normal text}{fg=xyjText,bg=white}
+\setbeamercolor{structure}{fg=xyjPrimary}
+\setbeamercolor{frametitle}{fg=xyjText,bg=white}
+\setbeamercolor{headline}{fg=white,bg=xyjPrimary}
+\setbeamercolor{footline}{fg=xyjMuted,bg=white}
+\setbeamercolor{section in toc}{fg=xyjText}
+\setbeamercolor{section number projected}{bg=xyjPrimary,fg=white}
+\setbeamercolor{subsection in toc}{fg=xyjMuted}
+\setbeamercolor{itemize item}{fg=xyjAccent}
+\setbeamercolor{itemize subitem}{fg=xyjAccent}
+\setbeamercolor{block title}{fg=white,bg=xyjPrimary}
+\setbeamercolor{block body}{fg=xyjText,bg=xyjTint}
+\setbeamercolor{xyjupperprimary}{fg=white,bg=xyjPrimary}
+\setbeamercolor{xyjupperaccent}{fg=xyjOnAccent,bg=xyjAccent}
+\setbeamercolor{xyjlower}{fg=xyjText,bg=xyjTint}
+\setbeamercolor{coverband}{fg=white,bg=xyjPrimary}
+\setbeamercolor{caption name}{fg=xyjMuted}
+
+\endinput

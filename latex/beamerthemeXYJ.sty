@@ -1,0 +1,21 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeXYJ}[2026/11/22 XYJ Beamer theme]
+
+\newcommand{\xyjpalette}{whu}
+\DeclareOption{whu}{\renewcommand{\xyjpalette}{whu}}
+\DeclareOption{whu-lake}{\renewcommand{\xyjpalette}{whu-lake}}
+\DeclareOption{whu-tile}{\renewcommand{\xyjpalette}{whu-tile}}
+\DeclareOption{whu-vine}{\renewcommand{\xyjpalette}{whu-vine}}
+\DeclareOption{whu-gold}{\renewcommand{\xyjpalette}{whu-gold}}
+\DeclareOption{whu-mist}{\renewcommand{\xyjpalette}{whu-mist}}
+\DeclareOption{xmu}{\renewcommand{\xyjpalette}{xmu}}
+\ExecuteOptions{whu}
+\ProcessOptions\relax
+
+\usecolortheme{XYJ}
+\usefonttheme{XYJ}
+\useinnertheme{XYJ}
+\useoutertheme{XYJ}
+\RequirePackage{xyjmacros}
+
+\endinput

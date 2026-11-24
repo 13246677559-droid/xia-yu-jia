@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemeXYJ}
+
+\RequirePackage{etoolbox}
+\RequirePackage{tikz}
+\setlength{\topsep}{0mm}
+\setlength{\partopsep}{0mm}
+
+\setbeamertemplate{itemize item}{%
+  \color{xyjAccent}\raisebox{-0.35ex}{\tikz{\fill (0,0) circle (0.6875mm);}}%
+}
+\setbeamertemplate{itemize subitem}{%
+  \color{xyjAccent}\raisebox{0.45ex}{\tikz{\fill (0,0) circle (0.5mm);}}%
+}
+
+\AtBeginEnvironment{itemize}{%
+  \setlength{\itemsep}{2mm}%
+  \setlength{\topsep}{0mm}%
+  \setlength{\partopsep}{0mm}%
+  \setlength{\topsep}{0mm}%
+  \setlength{\partopsep}{0mm}%
+  \setlength{\labelsep}{2.75mm}%
+}
+
+\endinput

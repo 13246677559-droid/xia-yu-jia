@@ -1,0 +1,328 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{xyjmacros}
+
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{adjustbox}
+\RequirePackage{etoolbox}
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{makecell}
+\RequirePackage{tikz}
+\RequirePackage[skins]{tcolorbox}
+
+\tcbset{
+  xyjblock/.style={
+    enhanced,
+    boxrule=0pt,
+    arc=1.5mm,
+    colback=xyjTint,
+    colframe=xyjTint,
+    coltext=xyjText,
+    boxsep=0mm,
+    left=3mm,
+    right=3mm,
+    top=2.25mm,
+    bottom=2.25mm,
+    fontupper=\sffamily\fontsize{7}{11.3}\selectfont,
+    colbacktitle=xyjPrimary,
+    coltitle=white,
+    fonttitle=\sffamily\fontsize{8}{9.8}\selectfont\bfseries,
+    lefttitle=3mm,
+    righttitle=3mm,
+    toptitle=1.6mm,
+    bottomtitle=1.6mm,
+    fuzzy shadow={0mm}{-1.06mm}{0mm}{0.25mm}{black!25},
+    before skip=0pt,
+    after skip=0pt
+  },
+  xyjblockaccent/.style={
+    xyjblock,
+    colbacktitle=xyjAccent,
+    coltitle=xyjOnAccent
+  },
+  xyjcover/.style={
+    enhanced,
+    boxrule=0pt,
+    arc=2mm,
+    colback=xyjPrimary,
+    colframe=xyjPrimary,
+    width=140mm,
+    height=27.5mm,
+    valign=top,
+    halign=center,
+    boxsep=0mm,
+    left=0mm,
+    right=0mm,
+    top=6.5mm,
+    bottom=0mm,
+    fontupper=\sffamily\color{white}\fontsize{20.74}{24.1}\selectfont,
+    fuzzy shadow={0mm}{-1.06mm}{0mm}{0.3mm}{black!28},
+    before skip=0pt,
+    after skip=0pt
+  }
+}
+
+\newcommand{\kw}[1]{\textbf{\textcolor{xyjAccentText}{#1}}}
+\newcommand{\xyjcenterline}[1]{%
+  \hspace*{-\leftmargin}%
+  \makebox[\dimexpr\linewidth+\leftmargin\relax][c]{#1}%
+}
+\newcommand{\xyjnotecenterline}[1]{%
+  \hspace*{-\leftmargin}\hspace*{-2.75mm}%
+  \makebox[\dimexpr\linewidth+\leftmargin\relax][c]{#1}%
+}
+\newcommand{\xyjstrike}[1]{%
+  \begingroup
+  \setbox0=\hbox{#1}%
+  \copy0\llap{\raisebox{0.45ex}{\rule{\wd0}{0.05em}}}%
+  \endgroup
+}
+\newcommand{\xyjoverline}[1]{%
+  \begingroup
+  \setbox0=\hbox{#1}%
+  \copy0\llap{\raisebox{\dimexpr\ht0+0.15ex\relax}{\rule{\wd0}{0.05em}}}%
+  \endgroup
+}
+\newcommand{\xyjnote}[1]{%
+  \par\vspace{0.125mm}\hspace*{2.75mm}{\sffamily\fontsize{7}{10.6}\selectfont\color{xyjMuted}#1}\par
+}
+\newcommand{\xyjblocktitle}[1]{%
+  \par\vspace{1.2mm}%
+  {\sffamily\fontsize{9}{11.5}\selectfont\bfseries\color{xyjPrimary}#1}\par
+  \vspace{0.5mm}%
+}
+\newcommand{\xyjbulletgroup}[1]{\xyjblocktitle{#1}}
+\newcommand{\xyjcodeline}[1]{%
+  {\ttfamily\obeyspaces\fontsize{6.5}{8.3}\selectfont #1\par}%
+}
+\newcommand{\xyjcodecomment}[1]{%
+  {\ttfamily\obeyspaces\fontsize{6.5}{8.3}\selectfont\color{xyjMuted}#1\par}%
+}
+\newcommand{\xyjcode}[2]{%
+  \ifstrempty{#1}{}{\xyjblocktitle{#1}}%
+  \begin{tcolorbox}[colback=xyjSoft,boxrule=0pt,arc=1mm,left=2mm,right=2mm,top=1.2mm,bottom=1.2mm]%
+    #2%
+  \end{tcolorbox}%
+}
+\newcommand{\xyjreference}[1]{%
+  \par\noindent\hangindent=4mm\hangafter=1%
+  {\sffamily\fontsize{6.5}{9}\selectfont\color{xyjText}#1}\par
+}
+\newcommand{\xyjreferences}[2]{%
+  \ifstrempty{#1}{}{\xyjblocktitle{#1}}%
+  #2%
+}
+\newcommand{\xyjfootnote}[2]{%
+  \noindent\textbf{注 #1}\hspace{1.2mm}#2\par
+}
+\newcommand{\xyjfootnotes}[1]{%
+  \par\vfill
+  \noindent\rule{\linewidth}{0.2pt}\par\vspace{0.6mm}%
+  {\sffamily\fontsize{5.5}{7.5}\selectfont\color{xyjFootnote}#1}%
+}
+
+\newcounter{xyjdefinition}
+\newcounter{xyjtheorem}
+\newcounter{xyjconsensus}
+\newcounter{xyjfigure}
+\newcounter{xyjtable}
+
+\newlength{\xyjpanewidth}
+\newlength{\xyjpanefullwidth}
+\newlength{\xyjpaneheight}
+\newlength{\xyjpanelayoutheight}
+\newlength{\xyjtitleheight}
+\newlength{\xyjavailableheight}
+\newlength{\xyjfootnoteheight}
+\setlength{\xyjfootnoteheight}{0pt}
+\newsavebox{\xyjtitlebox}
+\makeatletter
+\newcommand{\xyjpanesetup}{%
+  \setlength{\xyjpanefullwidth}{\linewidth}%
+  \setlength{\xyjpanewidth}{0.5\linewidth}%
+  \addtolength{\xyjpanewidth}{-0.16cm}%
+  \setlength{\xyjpanelayoutheight}{\dimexpr6.625cm-\xyjfootnoteheight\relax}%
+  \setlength{\xyjpaneheight}{\dimexpr(\xyjpanelayoutheight-0.3cm)/2\relax}%
+  \setbox\xyjtitlebox=\vbox{\vbox{}\usebeamertemplate***{frametitle}\vskip0.25em}%
+  \setlength{\xyjtitleheight}{\dimexpr\ht\xyjtitlebox+\dp\xyjtitlebox\relax}%
+  \setlength{\xyjavailableheight}{\textheight}%
+  \addtolength{\xyjavailableheight}{-\xyjtitleheight}%
+  \advance\xyjavailableheight by-\beamer@frametopskip\relax
+  \ifdim\xyjavailableheight<\dimexpr\xyjpanelayoutheight+\xyjfootnoteheight\relax
+    \errmessage{XYJ_PANE_NO_ROOM: page \thexyjpage\space has too little room for pane layout}%
+  \fi
+}
+\makeatother
+
+\newcommand{\xyjpanebox}[3]{%
+  \begingroup
+  \hsize=#1\relax
+  \linewidth=#1\relax
+  \setbox0=\vbox{#3}%
+  \ifdim\dimexpr\ht0+\dp0\relax>#2\relax
+    \errmessage{XYJ_PANE_OVERFLOW: page \thexyjpage\space pane content is too tall}%
+  \fi
+  \vbox to #2{\box0\vss}%
+  \endgroup
+}
+\newcommand{\xyjpaneboxc}[3]{%
+  \begingroup
+  \hsize=#1\relax
+  \linewidth=#1\relax
+  \setbox0=\vbox{#3}%
+  \ifdim\dimexpr\ht0+\dp0\relax>#2\relax
+    \errmessage{XYJ_PANE_OVERFLOW: page \thexyjpage\space pane content is too tall}%
+  \fi
+  \vbox to #2{\vss\box0\vss}%
+  \endgroup
+}
+
+\newenvironment{definitionbox}[1][定义]{%
+  \refstepcounter{xyjdefinition}%
+  \begin{tcolorbox}[xyjblock,title={#1~\thexyjdefinition}]%
+}{%
+  \end{tcolorbox}%
+}
+
+\newenvironment{theorembox}[1][定理]{%
+  \refstepcounter{xyjtheorem}%
+  \begin{tcolorbox}[xyjblock,title={#1~\thexyjtheorem}]%
+}{%
+  \end{tcolorbox}%
+}
+
+\newenvironment{consensusbox}[1][共识]{%
+  \refstepcounter{xyjconsensus}%
+  \begin{tcolorbox}[xyjblockaccent,title={#1~\thexyjconsensus}]%
+}{%
+  \end{tcolorbox}%
+}
+
+\newenvironment{groupbox}[1][编组]{%
+  \begin{tcolorbox}[xyjblockaccent,title={#1}]%
+}{%
+  \end{tcolorbox}%
+}
+
+\newcommand{\xyjth}[1]{#1}
+\newcommand{\xyjrowhead}[1]{#1}
+
+\newcommand{\xyjtocitem}[2]{%
+  \noindent\tikz[baseline=-0.55ex]{\node[circle,fill=xyjPrimary,text=white,inner sep=1.2pt,minimum size=5.25mm,font=\sffamily\fontsize{7}{8.5}\selectfont\bfseries]{#1};}%
+  \hspace{2.5mm}%
+  \adjustbox{max width=\dimexpr\linewidth-5.25mm-2.5mm-3pt\relax}{\sffamily\fontsize{10}{13}\selectfont #2}%
+}
+
+\newlength{\xyjtablewidth}
+\newlength{\xyjtablearea}
+\newlength{\xyjtablepos}
+\newsavebox{\xyjtablesave}
+
+\newcommand{\xyjfigure}[5]{%
+  \refstepcounter{xyjfigure}%
+  \vspace*{#3}%
+  \par\vtop{\hsize=\linewidth
+    \hbox to\linewidth{%
+      \hspace*{#2}%
+      \begin{minipage}[t]{\linewidth}\centering
+        \scalebox{#1}{\adjustbox{max width=\linewidth,max height=27.5mm}{\includegraphics[width=\linewidth]{#4}}}%
+        \ifstrempty{#5}{}{%
+          \par\vspace{1mm}{\sffamily\fontsize{5}{7}\selectfont\color{xyjMuted}图~\thexyjfigure\quad #5}%
+        }%
+      \end{minipage}%
+      \hss
+    }%
+  }\par
+}
+
+\newcommand{\xyjtable}[6]{%
+  \refstepcounter{xyjtable}%
+  \vspace*{#4}%
+  \par\vtop{\hsize=\linewidth
+    \begingroup
+    \pgfmathsetlength{\tabcolsep}{2.25mm*#2}%
+    \pgfmathsetmacro{\xyjtablestretch}{1.15*#2}%
+    \renewcommand{\arraystretch}{\xyjtablestretch}%
+    \sbox{\xyjtablesave}{{\color{xyjPrimary}\sffamily\fontsize{7}{10.6}\selectfont #6}}%
+    \setlength{\xyjtablewidth}{\wd\xyjtablesave}%
+    \setlength{\xyjtablearea}{\dimexpr\linewidth-\leftmargini\relax}%
+    \ifdim\xyjtablewidth>\xyjtablearea
+      \errmessage{XYJ_TABLE_TOO_WIDE: page \thexyjpage\space table is too wide}%
+    \fi
+    \setlength{\xyjtablepos}{0pt}%
+    \ifstrequal{#1}{c}{%
+      \setlength{\xyjtablepos}{\xyjtablearea}%
+      \addtolength{\xyjtablepos}{-\xyjtablewidth}%
+      \setlength{\xyjtablepos}{0.5\xyjtablepos}%
+    }{}%
+    \ifstrequal{#1}{r}{%
+      \setlength{\xyjtablepos}{\xyjtablearea}%
+      \addtolength{\xyjtablepos}{-\xyjtablewidth}%
+    }{}%
+    \addtolength{\xyjtablepos}{#3}%
+    \ifdim\xyjtablepos<0pt
+      \errmessage{XYJ_TABLE_OUT_OF_BOUNDS: page \thexyjpage\space table is out of bounds}%
+    \fi
+    \ifdim\dimexpr\xyjtablepos+\xyjtablewidth\relax>\xyjtablearea
+      \errmessage{XYJ_TABLE_OUT_OF_BOUNDS: page \thexyjpage\space table is out of bounds}%
+    \fi
+    \noindent\hspace*{\leftmargini}%
+    \makebox[\xyjtablearea][l]{%
+      \hspace*{\xyjtablepos}%
+      \begin{minipage}[t]{\xyjtablewidth}
+        \centering
+        \ifstrempty{#5}{}{%
+          {\sffamily\fontsize{5}{7}\selectfont\bfseries\color{xyjPrimary}表~\thexyjtable\quad #5}\par\vspace{1mm}%
+        }%
+        \usebox{\xyjtablesave}%
+      \end{minipage}%
+    }%
+    \endgroup
+  }\par
+}
+
+\newcommand{\xyjcoverband}[1]{%
+  \noindent\hspace*{2mm}%
+  \begin{tcolorbox}[xyjcover]
+    #1\par\vspace{2.5mm}{\color{xyjAccent}\rule{7.5mm}{0.5mm}}%
+  \end{tcolorbox}%
+}
+
+\newcommand{\xyjcoverfield}[2][md]{%
+  \par\noindent\hbox to\linewidth{\hfil
+  {\sffamily\ifstrequal{#1}{lg}{\fontsize{9}{11.7}\selectfont\color{xyjText}}{%
+     \ifstrequal{#1}{md}{\fontsize{7}{8}\selectfont\color{xyjMuted}}{%
+       \fontsize{5}{6.5}\selectfont\color{xyjMuted}}}%
+   #2}\hfil}\par\vspace{1mm}%
+}
+
+\newcommand{\xyjendpage}[3]{%
+  \setbeamertemplate{background canvas}{%
+    \begin{tikzpicture}
+      \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+      \fill[white] (0,0) rectangle (\paperwidth,\paperheight);
+      \fill[xyjPrimary]
+        (0,\paperheight) -- (\paperwidth,\paperheight) --
+        (\paperwidth,3.4cm)
+        .. controls (10.7cm,3.05cm) and (5.3cm,3.05cm) .. (0,3.4cm) -- cycle;
+      \draw[xyjEndTan,line width=1.2mm]
+        (0,3.4cm) .. controls (5.3cm,3.05cm) and (10.7cm,3.05cm) .. (\paperwidth,3.4cm);
+      \node at (8cm,7.25cm) {\includegraphics[height=1.35cm]{assets/whu-logo-white.png}};
+      \node[text=white,font=\sffamily\fontsize{26}{31}\selectfont\bfseries,text width=13cm,align=center]
+        at (8cm,5.45cm) {#1};
+      \node[anchor=east,text=xyjText,font=\sffamily\fontsize{10}{12}\selectfont]
+        at (6.4cm,2.25cm) {汇报人：};
+      \node[anchor=west,text=xyjText,font=\sffamily\fontsize{10}{12}\selectfont]
+        at (6.7cm,2.25cm) {#2};
+      \draw[xyjText,line width=0.02cm] (6.7cm,2.05cm) -- (11.3cm,2.05cm);
+      \node[anchor=east,text=xyjText,font=\sffamily\fontsize{10}{12}\selectfont]
+        at (6.4cm,1.35cm) {汇报时间：};
+      \node[anchor=west,text=xyjText,font=\sffamily\fontsize{10}{12}\selectfont]
+        at (6.7cm,1.35cm) {#3};
+      \draw[xyjText,line width=0.02cm] (6.7cm,1.15cm) -- (11.3cm,1.15cm);
+    \end{tikzpicture}%
+  }%
+}
+\endinput

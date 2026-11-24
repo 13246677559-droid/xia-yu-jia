@@ -1,0 +1,36 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerfontthemeXYJ}
+
+\RequirePackage{lmodern}
+\RequirePackage{fontspec}
+\setsansfont{lmsans10-regular.otf}[
+  BoldFont=lmsans10-bold.otf,
+  ItalicFont=lmsans10-oblique.otf,
+  BoldItalicFont=lmsans10-bold.otf
+]
+\setmainfont{lmroman10-regular.otf}[BoldFont=lmroman10-bold.otf]
+\usefonttheme{professionalfonts}
+\renewcommand{\familydefault}{\sfdefault}
+\AtBeginDocument{\sffamily}
+\RequirePackage{xeCJK}
+\setCJKmainfont{FandolHei-Regular.otf}[BoldFont=FandolHei-Bold.otf,AutoFakeSlant=0.2]
+\setCJKsansfont{FandolHei-Regular.otf}[BoldFont=FandolHei-Bold.otf,AutoFakeSlant=0.2]
+\setCJKmonofont{FandolHei-Regular.otf}[BoldFont=FandolHei-Bold.otf,AutoFakeSlant=0.2]
+
+\setbeamerfont{title}{family=\sffamily,size={\fontsize{20.74}{24.1}\selectfont},series=\mdseries}
+\setbeamerfont{frametitle}{family=\sffamily,size={\fontsize{12}{15.6}\selectfont},series=\mdseries}
+\setbeamerfont{block title}{family=\sffamily,size={\fontsize{8}{9.8}\selectfont},series=\bfseries}
+\setbeamerfont{normal text}{family=\sffamily,size={\fontsize{7}{10.6}\selectfont}}
+\setbeamerfont{itemize/enumerate body}{family=\sffamily,size={\fontsize{7}{10.6}\selectfont}}
+\setbeamerfont{itemize/enumerate subbody}{family=\sffamily,size={\fontsize{7}{9.5}\selectfont}}
+\setbeamerfont{section in toc}{family=\sffamily,size={\fontsize{10}{13}\selectfont}}
+\setbeamerfont{footline}{family=\sffamily,size={\fontsize{5}{5.5}\selectfont}}
+\setbeamerfont{caption}{family=\sffamily,size={\fontsize{5}{7}\selectfont}}
+
+\DeclareMathSizes{5}{5}{4}{3}
+\DeclareMathSizes{7}{7}{5}{4}
+\DeclareMathSizes{8}{8}{6}{5}
+\DeclareMathSizes{12}{12}{9}{8}
+\DeclareMathSizes{20.74}{20.74}{14}{12}
+
+\endinput
